@@ -1,0 +1,110 @@
+import re
+
+string1 = "103, Prasad building, Hanuman Cross Road No.1, Vile Parle(East), Mumbai,400057"
+lines = [line.split('\n') for line in open('address.txt')]
+
+print lines
+
+original = re.sub('[^0-9A-Za-z\,]','',string1.lower()).split(',')
+user = []
+
+for i in lines:
+	i = "".join(i)
+	user.append(re.sub('[^0-9A-Za-z\,]','',i.lower()).split(','))
+
+print user
+test = ['103','400057','prasadbuilding']
+landmark = ['shivleela','lakmesaloon']
+print original
+print user
+
+#first = [item[0] for item in user]
+#first.remove(first[0])
+#print first
+
+tmp = []
+tmp1 = []
+tmp2 = []
+
+
+for i in range(len(user)):
+	tmp.append([])
+	tmp1.append([])
+	tmp2.append([])
+	print tmp,tmp1,tmp2
+	
+	
+for i in range(len(user)):
+	for j in user[i]:
+		if j in original:
+			if i == 0:
+			
+				tmp[i].append(j)
+			if i >= 1:
+				tmp[i].append(j)
+print tmp
+			
+test = ['103','prasadbuilding','400057']
+landmark = ['lakmesaloon','shivleelahotel']
+
+for i in range(len(user)):
+		for j in user[i]:
+			if j in test:
+				if i == 0:
+					tmp1[i].append(j)
+				if i >= 1:
+					tmp1[i].append(j)
+print tmp1
+
+for i in range(len(user)):
+		for j in user[i]:
+			if j in landmark:
+				if i == 0:
+					tmp2[i].append(j)
+				if i >= 1:
+					tmp2[i].append(j)
+print tmp2
+
+flag = []
+flag1 = []
+flag2 = []
+for i in tmp:
+	flag.append(len(i))
+
+	
+for i in tmp1:
+	flag1.append(len(i))
+	
+for i in tmp2:
+	flag2.append(len(i))
+
+print flag,flag1,flag2
+
+
+
+for i in range(len(flag)):
+		if len(original) == flag[i] and flag1[i] == len(test):
+			print user[i],' is same as ',original
+			
+		
+		elif flag[i] < len(original) and flag1[i] == len(test):
+			if flag[i]  >= flag1[i]:
+				print 'partially same as it contains '," ".join(test)
+				
+		elif flag1[i] < len(test):
+			if flag2[i] >= 1:
+				print 'partially same but landmark specified'
+			
+			else:
+				print 'no match found'
+			
+			
+				
+		
+						
+
+		
+		
+		
+				
+
